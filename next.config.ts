@@ -12,7 +12,7 @@ const baseConfig: NextConfig = {
       }
     ]
   },
-  transpilePackages: ['geist']
+  transpilePackages: ['geist', 'reactflow']
 };
 
 let configWithPlugins = baseConfig;
