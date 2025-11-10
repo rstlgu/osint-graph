@@ -122,6 +122,17 @@
   }
 }
 
+/* ReactFlow Styles */
+.react-flow__edge-path {
+  stroke-width: 2;
+  stroke-opacity: 0.9;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke-width: 3;
+  stroke-opacity: 1;
+}
+
 /* View Transition Wave Effect */
 ::view-transition-old(root),
 ::view-transition-new(root) {

@@ -1,7 +1,6 @@
 'use client';
 
-import { EdgeProps, getBezierPath } from 'reactflow';
-import { BaseEdge, EdgeLabelRenderer } from 'reactflow';
+import { EdgeProps, getBezierPath, MarkerType, BaseEdge } from 'reactflow';
 
 export interface OSINTEdgeData {
   relationship: string;
@@ -16,10 +15,10 @@ export function OSINTEdge({
   targetY,
   sourcePosition,
   targetPosition,
-  data,
-  markerEnd
+  markerEnd,
+  selected
 }: EdgeProps<OSINTEdgeData>) {
-  const [edgePath, labelX, labelY] = getBezierPath({
+  const [edgePath] = getBezierPath({
     sourceX,
     sourceY,
     sourcePosition,
@@ -29,28 +28,15 @@ export function OSINTEdge({
   });
 
   return (
-    <>
-      <BaseEdge
-        id={id}
-        path={edgePath}
-        markerEnd={markerEnd}
-        style={{
-          strokeWidth: 2,
-          stroke: 'hsl(var(--primary))'
-        }}
-      />
-      {data?.label && (
-        <EdgeLabelRenderer>
-          <div
-            className='bg-background pointer-events-auto absolute rounded-md border px-2 py-1 text-xs font-medium shadow-sm'
-            style={{
-              transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`
-            }}
-          >
-            {data.label}
-          </div>
-        </EdgeLabelRenderer>
-      )}
-    </>
+    <BaseEdge
+      id={id}
+      path={edgePath}
+      markerEnd={markerEnd || MarkerType.ArrowClosed}
+      style={{
+        strokeWidth: selected ? 3 : 2,
+        stroke: '#3b82f6',
+        opacity: selected ? 1 : 0.9
+      }}
+    />
   );
 }

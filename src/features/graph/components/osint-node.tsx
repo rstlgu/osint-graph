@@ -1,8 +1,6 @@
 'use client';
 
 import { Handle, Position, NodeProps } from 'reactflow';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import {
   IconMail,
   IconWorld,
@@ -64,47 +62,33 @@ const typeConfig: Record<
   }
 };
 
-export function OSINTNode({ data }: NodeProps<OSINTNodeData>) {
+export function OSINTNode({ data, selected }: NodeProps<OSINTNodeData>) {
   const config = typeConfig[data.type] || typeConfig.generic;
   const Icon = config.icon;
 
   return (
-    <div className='px-2 py-2'>
-      <Card className={cn('w-[200px] border-2', config.bgColor)}>
-        <CardContent className='p-3'>
-          <div className='flex items-start gap-2'>
-            <Icon
-              className={cn('mt-0.5 h-5 w-5 flex-shrink-0', config.color)}
-            />
-            <div className='min-w-0 flex-1'>
-              <div className='truncate text-sm font-semibold'>{data.label}</div>
-              <Badge variant='outline' className='mt-1 text-xs'>
-                {data.type}
-              </Badge>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-      <Handle
-        type='target'
-        position={Position.Top}
-        className='!bg-primary !h-3 !w-3'
-      />
-      <Handle
-        type='source'
-        position={Position.Bottom}
-        className='!bg-primary !h-3 !w-3'
-      />
-      <Handle
-        type='target'
-        position={Position.Left}
-        className='!bg-primary !h-3 !w-3'
-      />
-      <Handle
-        type='source'
-        position={Position.Right}
-        className='!bg-primary !h-3 !w-3'
-      />
+    <div
+      className={cn(
+        'flex min-w-[120px] items-center gap-2 rounded-lg border-2 p-2',
+        config.bgColor,
+        'transition-shadow hover:shadow-md',
+        selected && 'ring-primary ring-2'
+      )}
+    >
+      <Handle type='source' position={Position.Top} id='top' />
+      <Handle type='target' position={Position.Top} id='top-target' />
+
+      <Handle type='source' position={Position.Right} id='right' />
+      <Handle type='target' position={Position.Right} id='right-target' />
+
+      <Handle type='source' position={Position.Bottom} id='bottom' />
+      <Handle type='target' position={Position.Bottom} id='bottom-target' />
+
+      <Handle type='source' position={Position.Left} id='left' />
+      <Handle type='target' position={Position.Left} id='left-target' />
+
+      <Icon className={cn('h-5 w-5 flex-shrink-0', config.color)} />
+      <div className='truncate text-sm font-semibold'>{data.label}</div>
     </div>
   );
 }
